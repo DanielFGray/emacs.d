@@ -1,4 +1,5 @@
 (req-package evil
+  :require (helm-config)
   :ensure evil
   :init
   (progn
@@ -18,6 +19,19 @@
   :require evil
   :init (global-surround-mode 1))
 
+(use-package evil-leader ; why doesn't this work with req-package??
+  ;; :require evil
+  :ensure evil-leader
+  :init (global-evil-leader-mode t)
+  :config
+  (progn
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+     "b" 'helm-mini
+     "f" 'helm-find-files
+     ";" 'helm-M-x
+     "/" 'helm-do-grep-ag)))
+
 (req-package evil-snipe
   :require evil
   :ensure evil-snipe
@@ -33,3 +47,9 @@
   :ensure evil-commentary
   :init (evil-commentary-mode 1))
 
+(req-package undo-tree
+  :diminish ""
+  :init
+  (progn
+    (setq undo-tree-auto-save-history t)
+    (global-undo-tree-mode)))
